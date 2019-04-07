@@ -3,7 +3,7 @@ package com.boronin.rasharash
 import io.reactivex.Single
 import java.net.URL
 
-class HtmlLoader(val url: String) {
+class HtmlLoader(private val url: String?) {
     fun getSongName(): Single<SongInfo> {
         return Single.create{ emitter ->
             val url = URL(url)

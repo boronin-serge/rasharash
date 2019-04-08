@@ -3,6 +3,9 @@ package com.boronin.rasharash.main
 import com.boronin.rasharash.HtmlLoader
 import com.boronin.rasharash.SongInfo
 import com.boronin.rasharash.base.BasePresenter
+import com.boronin.rasharash.detector.MusicService
+import com.boronin.rasharash.detector.SourceDetector
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.lang.Exception
@@ -14,19 +17,26 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter 
     override fun viewIsReady() {
         with(view!!) {
             initUI()
-            readInputUrl()
             setMainText(inputUrl ?: "")
-            enableLoading(true)
         }
     }
 
     override fun onUpdateInput(input: String?) {
-        inputUrl = input
+        inputUrl = input ?: ""
         onSearchSongName()
     }
 
     override fun onSearchSongName() {
-        val task = HtmlLoader(inputUrl).getSongName()
+        view?.enableLoading(true)
+
+        val service: MusicService = SourceDetector.INSTANCE.detect(inputUrl!!)
+        val task: Single<SongInfo> = when (service) {
+            MusicService.YANDEX -> {
+                HtmlLoader(inputUrl).getSongName()
+            }
+            else -> HtmlLoader(inputUrl).getSongName()
+        }
+
         task.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ foundedSong ->

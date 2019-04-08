@@ -10,10 +10,7 @@ import android.widget.Toast
 import com.boronin.rasharash.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity :
-    AppCompatActivity(),
-    MainContract.View,
-    View.OnClickListener {
+class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListener {
 
     private var presenter: MainPresenter = MainPresenter()
 
@@ -27,15 +24,13 @@ class MainActivity :
 
     override fun initUI() {
         send_button.setOnClickListener(this)
+
+        val url = intent?.clipData?.getItemAt(0)?.text?.toString()
+        presenter.onUpdateInput(url)
     }
 
     override fun setMainText(text: String) {
         song_name.text = text
-    }
-
-    override fun readInputUrl() {
-        val url = intent?.clipData?.getItemAt(0)?.text?.toString()
-        presenter.onUpdateInput(url)
     }
 
     override fun enableLoading(isEnable: Boolean) {
@@ -54,7 +49,6 @@ class MainActivity :
     override fun showError() {
         Toast.makeText(this, "Что-то пошло не так...", Toast.LENGTH_SHORT).show()
     }
-
 
     override fun onClick(v: View?) {
         when(v?.id) {

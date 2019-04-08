@@ -11,7 +11,6 @@ interface MainContract {
         fun shareLink(url: String)
         fun showError()
         fun setMainText(text: String)
-        fun readInputUrl()
     }
 
     interface Presenter: MvpPresenter<View> {

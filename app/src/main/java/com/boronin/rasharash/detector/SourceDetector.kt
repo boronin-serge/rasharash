@@ -1,13 +1,15 @@
 package com.boronin.rasharash.detector
 
-class SourceDetector {
+class SourceDetector private constructor() {
 
     fun detect(url: String): MusicService {
-        return when {
-            MusicService.YANDEX.isDetected(url) -> MusicService.YANDEX
-            MusicService.ITUNES.isDetected(url) -> MusicService.ITUNES
-            else -> MusicService.NONE
+        for (service in MusicService.values()) {
+            if (service.containsUrl(url)) {
+                return service
+            }
         }
+
+        return MusicService.NONE
     }
 
     companion object {

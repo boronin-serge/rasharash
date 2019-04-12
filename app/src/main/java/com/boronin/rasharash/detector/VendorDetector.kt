@@ -1,6 +1,6 @@
 package com.boronin.rasharash.detector
 
-class SourceDetector private constructor() {
+class VendorDetector private constructor() {
 
     fun detect(url: String): MusicService {
         for (service in MusicService.values()) {
@@ -13,6 +13,6 @@ class SourceDetector private constructor() {
     }
 
     companion object {
-        val INSTANCE = SourceDetector()
+        val INSTANCE = VendorDetector()
     }
 }

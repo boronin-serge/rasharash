@@ -19,7 +19,7 @@ class ITunesMetaData private constructor(): VendorMetaData() {
 
     companion object {
         val INSTANCE = ITunesMetaData().apply {
-            url = "https://itunes.apple.com/search?term="
+            searchApiUrl = "https://itunes.apple.com/search?term="
             startSearchPattern = "trackViewUrl\":\""
             endSearchPattern = "previewUrl"
         }

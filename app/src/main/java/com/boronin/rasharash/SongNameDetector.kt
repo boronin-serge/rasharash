@@ -4,17 +4,13 @@ import com.boronin.rasharash.vendor.VendorMetaData
 import io.reactivex.Single
 import java.net.URL
 
-class SongNameDetector(private val source: VendorMetaData, private val target: VendorMetaData) {
-    fun getSongName(): Single<SongInfo> {
+class SongNameDetector(private val source: VendorMetaData) {
+    fun getSongName(): Single<String> {
         return Single.create{ emitter ->
-            val url = URL(source.inputUrl)
+            val url = URL(source.sourceUrl)
             val html = url.readText()
             val songName = html.substring(source.getStartNameIndex(html), source.getEndNameIndex(html))
-            val songUrl = SongFinder(target).findSongUrl(songName)
-            val songInfo = SongInfo(songName).apply {
-                this.url = songUrl
-            }
-            emitter.onSuccess(songInfo)
+            emitter.onSuccess(songName)
         }
     }
 }

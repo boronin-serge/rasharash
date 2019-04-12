@@ -1,8 +1,8 @@
 package com.boronin.rasharash.vendor
 
 abstract class VendorMetaData {
-    var inputUrl: String = ""
-    var url: String = ""
+    var sourceUrl: String = ""
+    var searchApiUrl: String = ""
     var startSearchPattern: String = ""
     var endSearchPattern: String = ""
 

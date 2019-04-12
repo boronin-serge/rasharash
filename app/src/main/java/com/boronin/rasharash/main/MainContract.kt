@@ -1,5 +1,6 @@
 package com.boronin.rasharash.main
 
+import com.boronin.rasharash.SongInfo
 import com.boronin.rasharash.base.MvpPresenter
 import com.boronin.rasharash.base.MvpView
 
@@ -15,7 +16,7 @@ interface MainContract {
 
     interface Presenter: MvpPresenter<View> {
         fun onSearchSongName()
-        fun onSearchItunesSong()
+        fun onSearchItunesSong(songName: String)
         fun onUpdateInput(input: String?)
         fun onShare()
     }

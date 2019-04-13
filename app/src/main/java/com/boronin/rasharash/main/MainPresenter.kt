@@ -1,29 +1,21 @@
 package com.boronin.rasharash.main
 
-import com.boronin.rasharash.SongNameDetector
 import com.boronin.rasharash.SongInfo
 import com.boronin.rasharash.SongUrlDetector
 import com.boronin.rasharash.base.BasePresenter
-import com.boronin.rasharash.detector.MusicService
-import com.boronin.rasharash.detector.VendorDetector
 import com.boronin.rasharash.vendor.ITunesMetaData
 import com.boronin.rasharash.vendor.VendorMetaData
-import com.boronin.rasharash.vendor.YandexMetaData
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
-class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter  {
+class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter,
+    MainContract.InteractorCallback {
+    private val interactor: MainContract.Interactor = MainInteractor(this)
     private var inputUrl: String? = null
     private var songInfo: SongInfo? = null
-    private val vendors: HashMap<MusicService, VendorMetaData> = HashMap()
 
     override fun viewIsReady() {
-        vendors.clear()
-        vendors[MusicService.YANDEX] = YandexMetaData.INSTANCE
-        vendors[MusicService.ITUNES] = ITunesMetaData.INSTANCE
-
         with(view!!) {
             initUI()
             setMainText(inputUrl ?: "")
@@ -31,52 +23,13 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter 
     }
 
     override fun onUpdateInput(input: String?) {
-        inputUrl = input ?: ""
+        inputUrl = input
         onSearchSongName()
     }
 
     override fun onSearchSongName() {
         view?.enableLoading(true)
-
-        val service: MusicService = VendorDetector.INSTANCE.detect(inputUrl!!)
-        val metaData: VendorMetaData? = vendors[service]
-
-        metaData?.sourceUrl = inputUrl ?: ""
-
-        if (metaData == null) {
-            view?.showError()
-            view?.setMainText("Ошибка загрузки данных")
-            view?.enableLoading(false)
-        }
-        else {
-            val task = SongNameDetector(metaData).getSongName()
-            task.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ songName ->
-                    songName?.let { onSearchItunesSong(it) }
-                }, {
-                    view?.showError()
-                    view?.setMainText("Не удалось определить трэк")
-                    view?.enableLoading(false)
-                })
-        }
-    }
-
-    override fun onSearchItunesSong(songName: String) {
-        val task: Single<SongInfo> = SongUrlDetector(songName, ITunesMetaData.INSTANCE).getSongUrl()
-        task.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ foundedSong ->
-                foundedSong?.let {
-                    view?.setMainText(it.name)
-                }
-                songInfo = foundedSong
-                view?.enableLoading(false)
-            }, {
-                view?.showError()
-                view?.setMainText("Ошибка загрузки данных")
-                view?.enableLoading(false)
-            })
+        interactor.detectSongName(inputUrl)
     }
 
     override fun onShare() {
@@ -85,5 +38,24 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter 
         } catch (e: Exception) {
             view?.showError()
         }
+    }
+
+    // Interactor's callbacks
+
+    override fun onSongNameDetected(name: String) {
+        view?.enableLoading(false)
+        interactor.findSong(name, ITunesMetaData.INSTANCE)
+    }
+
+    override fun onSongFound(vendor: VendorMetaData, songInfo: SongInfo) {
+        view?.enableLoading(false)
+        view?.setMainText(songInfo.name)
+        this.songInfo = songInfo
+    }
+
+    override fun onError(text: String) {
+        view?.showError()
+        view?.setMainText(text)
+        view?.enableLoading(false)
     }
 }

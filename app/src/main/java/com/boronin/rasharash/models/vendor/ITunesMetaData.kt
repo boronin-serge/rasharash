@@ -22,6 +22,7 @@ class ITunesMetaData private constructor(): VendorMetaData() {
 
     companion object {
         val INSTANCE = ITunesMetaData().apply {
+            title = "iTunes"
             searchApiUrl = "https://itunes.apple.com/search?term="
         }
     }

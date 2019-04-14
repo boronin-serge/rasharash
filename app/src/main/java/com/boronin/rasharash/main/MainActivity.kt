@@ -3,17 +3,24 @@ package com.boronin.rasharash.main
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.view.KeyEvent
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import com.boronin.rasharash.R
+import com.boronin.rasharash.models.SearchResult
+import com.boronin.rasharash.models.SongInfo
 import com.boronin.rasharash.models.vendor.ITunesMetaData
+import com.boronin.rasharash.models.vendor.VendorMetaData
+import com.boronin.rasharash.utils.SystemHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListener {
-
+class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListener,
+    TextView.OnEditorActionListener, VendorsAdapter.ItemClickListener {
     private var presenter: MainPresenter = MainPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,8 +32,12 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
     }
 
     override fun initUI() {
+        song_name.setOnEditorActionListener(this)
         send_button.setOnClickListener(this)
         search_button.setOnClickListener(this)
+
+        vendors.layoutManager = LinearLayoutManager(this)
+        vendors.adapter = VendorsAdapter(ArrayList(), this)
 
         val url = intent?.clipData?.getItemAt(0)?.text?.toString()
         presenter.onUpdateInput(url)
@@ -36,8 +47,10 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         song_name.setText(text, TextView.BufferType.EDITABLE)
     }
 
-    override fun showFoundedUrl(text: String) {
-        vendor_url.text = text
+    override fun showFoundedSong(searchResult: SearchResult) {
+        val list = ArrayList<SearchResult>()
+        list.add(searchResult)
+        (vendors.adapter as VendorsAdapter).update(list)
     }
 
     override fun enableLoading(isEnable: Boolean) {
@@ -66,5 +79,18 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
             R.id.send_button -> presenter.onShare()
             R.id.search_button -> presenter.onSearchSongUrl(song_name.text.toString(), ITunesMetaData.INSTANCE)
         }
+    }
+
+    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            presenter.onSearchSongUrl(song_name.text.toString())
+            SystemHelper.INSTANCE.hideKeyboard(this, song_name)
+            return true
+        }
+        return false
+    }
+
+    override fun clicked(outputUrl: String) {
+        shareLink(outputUrl)
     }
 }

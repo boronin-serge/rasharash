@@ -2,6 +2,7 @@ package com.boronin.rasharash.main
 
 import com.boronin.rasharash.models.SongInfo
 import com.boronin.rasharash.base.BasePresenter
+import com.boronin.rasharash.models.SearchResult
 import com.boronin.rasharash.models.vendor.ITunesMetaData
 import com.boronin.rasharash.models.vendor.VendorMetaData
 import com.boronin.rasharash.utils.Constants
@@ -39,6 +40,10 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter,
         interactor.findSong(songName, vendor)
     }
 
+    override fun onSearchSongUrl(songName: String) {
+        onSearchSongUrl(songName, ITunesMetaData.INSTANCE)
+    }
+
     override fun onShare() {
         try {
             view?.shareLink(songInfo?.url!!)
@@ -56,7 +61,7 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter,
 
     override fun onSongFound(vendor: VendorMetaData, songInfo: SongInfo) {
         view?.enableLoading(false)
-        view?.showFoundedUrl(songInfo.url)
+        view?.showFoundedSong(SearchResult(songInfo, vendor))
         view?.enableShare(songInfo.url.isNotEmpty())
         this.songInfo = songInfo
     }

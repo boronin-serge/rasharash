@@ -3,6 +3,7 @@ package com.boronin.rasharash.models.vendor
 import org.json.JSONObject
 
 abstract class VendorMetaData {
+    var title: String = ""
     var sourceUrl: String = ""
     var searchApiUrl: String = ""
 

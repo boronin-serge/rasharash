@@ -1,4 +1,4 @@
-package com.boronin.rasharash.detector
+package com.boronin.rasharash.models
 
 enum class MusicService {
     YANDEX {

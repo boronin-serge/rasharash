@@ -1,6 +1,6 @@
-package com.boronin.rasharash
+package com.boronin.rasharash.detectors
 
-import com.boronin.rasharash.vendor.VendorMetaData
+import com.boronin.rasharash.models.vendor.VendorMetaData
 import io.reactivex.Observable
 import java.net.URL
 

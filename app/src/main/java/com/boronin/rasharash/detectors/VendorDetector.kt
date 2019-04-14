@@ -1,4 +1,6 @@
-package com.boronin.rasharash.detector
+package com.boronin.rasharash.detectors
+
+import com.boronin.rasharash.models.MusicService
 
 class VendorDetector private constructor() {
 

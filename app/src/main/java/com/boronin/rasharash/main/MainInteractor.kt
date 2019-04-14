@@ -1,15 +1,14 @@
 package com.boronin.rasharash.main
 
-import com.boronin.rasharash.SongInfo
-import com.boronin.rasharash.SongNameDetector
-import com.boronin.rasharash.SongUrlDetector
+import com.boronin.rasharash.detectors.SongNameDetector
+import com.boronin.rasharash.detectors.SongUrlDetector
 import com.boronin.rasharash.base.BaseInteractor
-import com.boronin.rasharash.detector.MusicService
-import com.boronin.rasharash.detector.VendorDetector
-import com.boronin.rasharash.vendor.ITunesMetaData
-import com.boronin.rasharash.vendor.VendorMetaData
-import com.boronin.rasharash.vendor.YandexMetaData
-import io.reactivex.Single
+import com.boronin.rasharash.models.MusicService
+import com.boronin.rasharash.detectors.VendorDetector
+import com.boronin.rasharash.models.vendor.ITunesMetaData
+import com.boronin.rasharash.models.vendor.VendorMetaData
+import com.boronin.rasharash.models.vendor.YandexMetaData
+import com.boronin.rasharash.utils.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -34,11 +33,11 @@ class MainInteractor(private val callback: MainContract.InteractorCallback) : Ma
                 .subscribe({
                     callback.onSongNameDetected(it)
                 }, {
-                    callback.onError("Не удалось определить трэк")
+                    callback.onError(Constants.TRACK_NOT_RECOGNIZED)
                 })
         }
         else {
-            callback.onError("Ошибка загрузки данных")
+            callback.onError(Constants.LOADING_ERROR)
         }
     }
 
@@ -49,7 +48,7 @@ class MainInteractor(private val callback: MainContract.InteractorCallback) : Ma
             .subscribe({
                 callback.onSongFound(vendor, it)
             }, {
-                callback.onError("Ошибка загрузки данных")
+                callback.onError(Constants.LOADING_ERROR)
             })
     }
 }

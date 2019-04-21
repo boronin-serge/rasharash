@@ -11,7 +11,6 @@ interface MainContract {
     interface View: MvpView {
         fun initUI()
         fun enableLoading(isEnable: Boolean)
-        fun enableShare(isEnable: Boolean)
         fun shareLink(url: String)
         fun showError(text: String)
         fun showMainText(text: String)

@@ -28,7 +28,6 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter,
 
     override fun onSearchSongName() {
         view?.enableLoading(true)
-        view?.enableShare(false)
         interactor.detectSongName(inputUrl)
     }
 
@@ -36,7 +35,6 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter,
         if (songName.isBlank()) return
 
         view?.enableLoading(true)
-        view?.enableShare(false)
         interactor.findSong(songName, vendor)
     }
 
@@ -62,7 +60,6 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter,
     override fun onSongFound(vendor: VendorMetaData, songInfo: SongInfo) {
         view?.enableLoading(false)
         view?.showFoundedSong(SearchResult(songInfo, vendor))
-        view?.enableShare(songInfo.url.isNotEmpty())
         this.songInfo = songInfo
     }
 
@@ -71,6 +68,5 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter,
         if (error.isBlank()) error = Constants.SMTH_WRONG_TEXT
         view?.showError(error)
         view?.enableLoading(false)
-        view?.enableShare(false)
     }
 }

@@ -13,14 +13,26 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="@dimen/margin_16dp"
+        android:layout_marginEnd="8dp"
         android:hint="@string/input_name_hint"
-        android:inputType="text"
         android:imeOptions="actionSearch"
+        android:inputType="text"
         android:maxLines="1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/clear_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/clear_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="5dp"
+        android:tint="@color/colorPrimary"
+        android:background="?selectableItemBackgroundBorderless"
+        android:layout_marginEnd="@dimen/margin_16dp"
+        android:src="@drawable/ic_baseline_clear_24px"
+        app:layout_constraintBottom_toBottomOf="@+id/song_name"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/vendors"
@@ -39,19 +51,6 @@
         android:layout_marginBottom="@dimen/margin_16dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/send_button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:enabled="false"
-        android:text="@string/send_hint"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.FloatingActionButton

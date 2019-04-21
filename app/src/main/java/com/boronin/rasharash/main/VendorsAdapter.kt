@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.boronin.rasharash.R
 import com.boronin.rasharash.models.SearchResult
-import com.boronin.rasharash.models.SongInfo
 
 class VendorsAdapter(
     private val vendors: ArrayList<SearchResult>,
@@ -33,7 +32,7 @@ class VendorsAdapter(
 
         viewHolder.name.text = "${vendor.songInfo.name}\n${vendor.vendorMetaData.title}"
         viewHolder.itemView.setOnClickListener {
-            listener.clicked(vendor.songInfo.url)
+            listener.resultItemClicked(vendor.songInfo.url)
         }
     }
 
@@ -44,6 +43,6 @@ class VendorsAdapter(
     }
 
     interface ItemClickListener {
-        fun clicked(outputUrl: String)
+        fun resultItemClicked(outputUrl: String)
     }
 }

@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
 
     override fun initUI() {
         song_name.setOnEditorActionListener(this)
-        send_button.setOnClickListener(this)
         search_button.setOnClickListener(this)
+        clear_button.setOnClickListener(this)
 
         vendors.layoutManager = LinearLayoutManager(this)
         vendors.adapter = VendorsAdapter(ArrayList(), this)
@@ -57,10 +57,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         progress_bar.visibility = if (isEnable) VISIBLE else INVISIBLE
     }
 
-    override fun enableShare(isEnable: Boolean) {
-        send_button.isEnabled = isEnable
-    }
-
     override fun shareLink(url: String) {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
@@ -76,8 +72,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.send_button -> presenter.onShare()
             R.id.search_button -> presenter.onSearchSongUrl(song_name.text.toString(), ITunesMetaData.INSTANCE)
+            R.id.clear_button -> song_name.text.clear()
         }
     }
 
@@ -90,7 +86,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         return false
     }
 
-    override fun clicked(outputUrl: String) {
+    override fun resultItemClicked(outputUrl: String) {
         shareLink(outputUrl)
     }
 }

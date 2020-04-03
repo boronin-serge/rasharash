@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,7 +8,7 @@
     tools:context=".main.MainActivity">
 
     <EditText
-        android:id="@+id/song_name"
+        android:id="@+id/etTrackName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_16dp"
@@ -18,12 +18,12 @@
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:maxLines="1"
-        app:layout_constraintEnd_toStartOf="@id/clear_button"
+        app:layout_constraintEnd_toStartOf="@id/btnClear"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/clear_button"
+        android:id="@+id/btnClear"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:padding="5dp"
@@ -31,20 +31,20 @@
         android:background="?selectableItemBackgroundBorderless"
         android:layout_marginEnd="@dimen/margin_16dp"
         android:src="@drawable/ic_baseline_clear_24px"
-        app:layout_constraintBottom_toBottomOf="@+id/song_name"
+        app:layout_constraintBottom_toBottomOf="@+id/etTrackName"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/vendors"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvVendorList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/search_button"
-        app:layout_constraintTop_toBottomOf="@+id/song_name"/>
+        app:layout_constraintBottom_toTopOf="@+id/fabSearchButton"
+        app:layout_constraintTop_toBottomOf="@+id/etTrackName"/>
 
     <ProgressBar
-        android:id="@+id/progress_bar"
+        android:id="@+id/progressBar"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="@dimen/margin_16dp"
@@ -53,8 +53,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/search_button"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -67,4 +67,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

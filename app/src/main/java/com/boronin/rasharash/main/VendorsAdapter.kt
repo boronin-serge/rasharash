@@ -1,17 +1,18 @@
 package com.boronin.rasharash.main
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.boronin.rasharash.R
 import com.boronin.rasharash.models.SearchResult
 
 class VendorsAdapter(
-    private val vendors: ArrayList<SearchResult>,
     private val listener: ItemClickListener
 ) : RecyclerView.Adapter<VendorsAdapter.ViewHolder>() {
+
+    private val vendors: MutableList<SearchResult> = mutableListOf()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.result_name)
@@ -36,7 +37,7 @@ class VendorsAdapter(
         }
     }
 
-    fun update(vendors: ArrayList<SearchResult>) {
+    fun update(vendors: List<SearchResult>) {
         this.vendors.clear()
         this.vendors.addAll(vendors)
         notifyDataSetChanged()

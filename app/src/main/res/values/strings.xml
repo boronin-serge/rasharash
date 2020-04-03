@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">rasharash</string>
     <string name="send_hint">Отправить</string>
-    <string name="send_to">Отправить ссылку через...</string>
+    <string name="send_to">Отправить ссылку через…</string>
     <string name="search_hint">Найти</string>
     <string name="input_name_hint">Введите название композиции</string>
 </resources>

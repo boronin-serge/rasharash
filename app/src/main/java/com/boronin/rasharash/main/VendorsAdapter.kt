@@ -1,5 +1,6 @@
 package com.boronin.rasharash.main
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ class VendorsAdapter(
     private val vendors: MutableList<SearchResult> = mutableListOf()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.result_name)
+        val name: TextView = itemView.findViewById(R.id.tvResultName)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,6 +29,7 @@ class VendorsAdapter(
         return vendors.size
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val vendor = vendors[position]
 

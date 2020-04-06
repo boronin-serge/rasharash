@@ -7,32 +7,72 @@
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
 
-    <EditText
+    <TextView
+        android:id="@+id/tvLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/app_name"
+        android:textColor="#898989"
+        android:textSize="20sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/etTrackName"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/sfprodisplay_light"
+        android:text="@string/search_hint"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/etTrackName"
+        app:layout_constraintTop_toBottomOf="@id/tvLogo"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etTrackName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:hint="@string/input_name_hint"
         android:imeOptions="actionSearch"
-        android:inputType="text"
+        android:background="@null"
         android:maxLines="1"
+        android:inputType="text|textNoSuggestions"
+        android:textCursorDrawable="@null"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader"
         app:layout_constraintEnd_toStartOf="@id/btnClear"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:text="Track name" />
 
-    <ImageView
+    <View
+        android:id="@+id/vUnderline"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="#0D000000"
+        app:layout_constraintEnd_toEndOf="@id/btnClear"
+        app:layout_constraintStart_toStartOf="@id/etTrackName"
+        app:layout_constraintTop_toBottomOf="@id/etTrackName"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btnClear"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:padding="5dp"
-        android:tint="@color/colorPrimary"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
         android:background="?selectableItemBackgroundBorderless"
-        android:layout_marginEnd="@dimen/margin_16dp"
+        android:padding="5dp"
         android:src="@drawable/ic_baseline_clear_24px"
+        android:tint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="@+id/etTrackName"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etTrackName" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvVendorList"
@@ -40,31 +80,17 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/fabSearchButton"
-        app:layout_constraintTop_toBottomOf="@+id/etTrackName"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vUnderline"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="@dimen/margin_16dp"
-        android:layout_marginBottom="@dimen/margin_16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabSearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        style="@style/Widget.MaterialComponents.FloatingActionButton"
-        android:layout_margin="16dp"
-        android:src="@drawable/baseline_search_black_24"
-        android:background="@color/colorAccent"
-        android:tint="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

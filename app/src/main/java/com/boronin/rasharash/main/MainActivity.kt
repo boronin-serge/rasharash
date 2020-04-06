@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boronin.rasharash.R
 import com.boronin.rasharash.models.SearchResult
-import com.boronin.rasharash.models.vendor.ITunesMetaData
 import com.boronin.rasharash.utils.SystemHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -66,15 +65,14 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.fabSearchButton -> presenter.onSearchSongByName(etTrackName.text.toString(), ITunesMetaData.INSTANCE)
-            R.id.btnClear -> etTrackName.text.clear()
+            R.id.btnClear -> etTrackName.text?.clear()
         }
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             presenter.onSearchSongByName(etTrackName.text.toString())
-            SystemHelper.INSTANCE.hideKeyboard(this, etTrackName)
+            SystemHelper.hideKeyboard(this, etTrackName)
             return true
         }
         return false
@@ -102,7 +100,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
 
     private fun initListeners() {
         etTrackName.setOnEditorActionListener(this)
-        fabSearchButton.setOnClickListener(this)
         btnClear.setOnClickListener(this)
     }
 

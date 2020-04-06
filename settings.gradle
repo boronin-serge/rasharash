@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':core-api', ':common-extension', ':core-android', ':common-view', ':common-utils'

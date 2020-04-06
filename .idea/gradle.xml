@@ -11,6 +11,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/common-extension" />
+            <option value="$PROJECT_DIR$/common-utils" />
+            <option value="$PROJECT_DIR$/common-view" />
+            <option value="$PROJECT_DIR$/core-android" />
+            <option value="$PROJECT_DIR$/core-api" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boronin.rasharash.R
-import com.boronin.rasharash.models.SearchResult
+import com.boronin.rasharash.models.song.SongInfo
 import com.boronin.rasharash.utils.SystemHelper
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -37,8 +37,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         etTrackName.setText(text, TextView.BufferType.EDITABLE)
     }
 
-    override fun showSearchResult(searchResult: SearchResult) {
-        (rvVendorList.adapter as VendorsAdapter).update(listOf(searchResult))
+    override fun showSearchResult(searchResult: List<SongInfo>) {
+        (rvVendorList.adapter as VendorsAdapter).update(searchResult)
     }
 
     override fun enableLoading(isEnable: Boolean) {
@@ -65,7 +65,10 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
 
     override fun onClick(v: View?) {
         when(v?.id) {
-            R.id.btnClear -> etTrackName.text?.clear()
+            R.id.btnClear -> {
+                etTrackName.text?.clear()
+                showSearchResult(listOf())
+            }
         }
     }
 
@@ -78,8 +81,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         return false
     }
 
-    override fun resultItemClicked(outputUrl: String) {
-        shareLink(outputUrl)
+    override fun resultItemClicked(outputUrl: String?) {
+        outputUrl?.let { shareLink(it) }
     }
 
     // endregion
@@ -91,6 +94,10 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         rvVendorList.layoutManager =
             LinearLayoutManager(this)
         rvVendorList.adapter = VendorsAdapter(this)
+
+        // TODO: remove after test
+        etTrackName.setText("metallica")
+        presenter.onSearchSongByName(etTrackName.text.toString())
     }
 
     private fun parseInputIntent() {

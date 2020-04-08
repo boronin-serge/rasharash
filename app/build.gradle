@@ -39,6 +39,14 @@ dependencies {
 
     implementation developmentDependencies.coreKtx
     implementation developmentDependencies.kotlinStdlibJdk7
+    
+    implementation dependencies.glide
+
+    // Retrofit
+    implementation dependencies.retrofit
+    implementation dependencies.retrofitLogging
+    implementation dependencies.retrofitAdapterRxJava
+    implementation dependencies.gsonRetrofitConverter
 
     testImplementation testDependencies.junit
     androidTestImplementation testDependencies.androidJunit

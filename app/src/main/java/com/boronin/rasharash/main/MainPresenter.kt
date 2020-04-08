@@ -1,8 +1,6 @@
 package com.boronin.rasharash.main
 
 import com.boronin.rasharash.base.BasePresenter
-import com.boronin.rasharash.models.SearchResult
-import com.boronin.rasharash.models.SongInfo
 import com.boronin.rasharash.models.vendor.ITunesMetaData
 import com.boronin.rasharash.models.vendor.VendorMetaData
 import com.boronin.rasharash.utils.Constants
@@ -11,7 +9,6 @@ import io.reactivex.disposables.Disposable
 
 class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter {
     private val interactor: MainContract.Interactor = MainInteractor()
-    private var songInfo: SongInfo? = null
     private lateinit var subscriptions: Disposable
 
     // region MainContract.Presenter
@@ -34,21 +31,12 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter 
 
         subscriptions = interactor.findSong(songName, vendor)
             .progress{ view?.enableLoading(it) }
-            .subscribe({ songInfo ->
+            .subscribe({ list ->
                 view?.enableLoading(false)
-                view?.showSearchResult(SearchResult(songInfo, vendor))
-                this.songInfo = songInfo
+                view?.showSearchResult(list ?: listOf())
             }, {
                 view?.showError(Constants.LOADING_ERROR)
             })
-    }
-
-    override fun onShare() {
-        try {
-            view?.shareLink(songInfo?.url!!)
-        } catch (e: Exception) {
-            view?.showError(Constants.SMTH_WRONG_TEXT)
-        }
     }
 
     // endregion

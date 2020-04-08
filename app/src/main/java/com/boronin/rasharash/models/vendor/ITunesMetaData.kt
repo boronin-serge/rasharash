@@ -1,5 +1,7 @@
 package com.boronin.rasharash.models.vendor
 
+import android.graphics.Color
+import com.boronin.rasharash.models.song.SongInfo
 import org.json.JSONObject
 
 class ITunesMetaData private constructor(): VendorMetaData() {
@@ -12,8 +14,8 @@ class ITunesMetaData private constructor(): VendorMetaData() {
         return 0
     }
 
-    override fun getTrackUrl(response: JSONObject): String {
-        return response.getJSONArray("results").getJSONObject(0).getString("trackViewUrl")
+    override fun getSearchResult(response: JSONObject): List<SongInfo>? {
+        return parseJsonToModel(response.getJSONArray("results"))
     }
 
     override fun getSearchSongUrl(songName: String): String {
@@ -23,6 +25,7 @@ class ITunesMetaData private constructor(): VendorMetaData() {
     companion object {
         val INSTANCE = ITunesMetaData().apply {
             title = "iTunes"
+            color = Color.RED
             searchApiUrl = "https://itunes.apple.com/search?term="
         }
     }

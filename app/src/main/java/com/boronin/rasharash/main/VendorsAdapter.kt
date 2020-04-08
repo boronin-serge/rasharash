@@ -4,19 +4,23 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.boronin.rasharash.R
-import com.boronin.rasharash.models.SearchResult
+import com.boronin.rasharash.models.song.SongInfo
+import com.bumptech.glide.Glide
 
 class VendorsAdapter(
     private val listener: ItemClickListener
 ) : RecyclerView.Adapter<VendorsAdapter.ViewHolder>() {
 
-    private val vendors: MutableList<SearchResult> = mutableListOf()
+    private val data: MutableList<SongInfo> = mutableListOf()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.tvResultName)
+        val name: AppCompatTextView = itemView.findViewById(R.id.tvTitle)
+        val vendorName: AppCompatTextView = itemView.findViewById(R.id.tvVendorName)
+        val logo: AppCompatImageView = itemView.findViewById(R.id.ivLogo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,26 +30,31 @@ class VendorsAdapter(
     }
 
     override fun getItemCount(): Int {
-        return vendors.size
+        return data.size
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val vendor = vendors[position]
+        val song = data[position]
 
-        viewHolder.name.text = "${vendor.songInfo.name}\n${vendor.vendorMetaData.title}"
-        viewHolder.itemView.setOnClickListener {
-            listener.resultItemClicked(vendor.songInfo.url)
+        with(viewHolder) {
+            name.text = "${song.artistName} - ${song.name}"
+            vendorName.text = song.vendorMetaData?.title
+            itemView.setOnClickListener {
+                listener.resultItemClicked(song.url)
+            }
+
+            Glide.with(itemView.context).load(song.logoUrl).into(viewHolder.logo)
         }
     }
 
-    fun update(vendors: List<SearchResult>) {
-        this.vendors.clear()
-        this.vendors.addAll(vendors)
+    fun update(vendors: List<SongInfo>) {
+        this.data.clear()
+        this.data.addAll(vendors)
         notifyDataSetChanged()
     }
 
     interface ItemClickListener {
-        fun resultItemClicked(outputUrl: String)
+        fun resultItemClicked(outputUrl: String?)
     }
 }

@@ -1,5 +1,6 @@
 package com.boronin.rasharash.models.vendor
 
+import com.boronin.rasharash.models.song.SongInfo
 import org.json.JSONObject
 
 class YandexMetaData private constructor(): VendorMetaData() {
@@ -12,8 +13,8 @@ class YandexMetaData private constructor(): VendorMetaData() {
         return html.indexOf(". Слушать онлайн")
     }
 
-    override fun getTrackUrl(response: JSONObject): String {
-        return ""
+    override fun getSearchResult(response: JSONObject): List<SongInfo>? {
+        return null
     }
 
     override fun getSearchSongUrl(songName: String): String {

@@ -9,11 +9,12 @@ import io.reactivex.disposables.Disposable
 
 class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter {
     private val interactor: MainContract.Interactor = MainInteractor()
-    private lateinit var subscriptions: Disposable
+    private var subscriptions: Disposable? = null
 
     // region MainContract.Presenter
 
     override fun searchSongByUrl(url: String?) {
+        subscriptions?.dispose()
         url?.let { it ->
             subscriptions = interactor.detectSongName(it)
                 .progress{ view?.enableLoading(it) }

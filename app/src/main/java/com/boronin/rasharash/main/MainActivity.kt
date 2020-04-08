@@ -96,8 +96,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         rvVendorList.adapter = VendorsAdapter(this)
 
         // TODO: remove after test
-        etTrackName.setText("metallica")
-        presenter.onSearchSongByName(etTrackName.text.toString())
+//        etTrackName.setText("metallica")
+//        presenter.onSearchSongByName(etTrackName.text.toString())
     }
 
     private fun parseInputIntent() {

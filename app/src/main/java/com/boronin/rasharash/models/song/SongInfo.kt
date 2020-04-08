@@ -9,5 +9,6 @@ data class SongInfo(
     @SerializedName("artistName") val artistName: String?,
     @SerializedName("artworkUrl100") val logoUrl: String?,
     @SerializedName("trackTimeMillis") val trackTimeMillis: Int?,
+    @SerializedName("collectionName") val collectionName: String?,
     var vendorMetaData: VendorMetaData?
 )

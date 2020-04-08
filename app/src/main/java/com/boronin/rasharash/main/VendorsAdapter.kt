@@ -20,6 +20,7 @@ class VendorsAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: AppCompatTextView = itemView.findViewById(R.id.tvTitle)
         val vendorName: AppCompatTextView = itemView.findViewById(R.id.tvVendorName)
+        val album: AppCompatTextView = itemView.findViewById(R.id.tvAlbumName)
         val logo: AppCompatImageView = itemView.findViewById(R.id.ivLogo)
     }
 
@@ -40,6 +41,7 @@ class VendorsAdapter(
         with(viewHolder) {
             name.text = "${song.artistName} - ${song.name}"
             vendorName.text = song.vendorMetaData?.title
+            album.text = song.collectionName
             itemView.setOnClickListener {
                 listener.resultItemClicked(song.url)
             }

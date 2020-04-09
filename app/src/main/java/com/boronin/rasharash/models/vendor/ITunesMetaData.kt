@@ -25,7 +25,7 @@ class ITunesMetaData private constructor(): VendorMetaData() {
     companion object {
         val INSTANCE = ITunesMetaData().apply {
             title = "iTunes"
-            color = Color.RED
+            color = Color.parseColor("#FF265A")
             searchApiUrl = "https://itunes.apple.com/search?term="
         }
     }

@@ -42,3 +42,4 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter 
 
     // endregion
 }
+

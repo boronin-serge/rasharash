@@ -79,9 +79,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:clipToPadding="false"
+        android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vUnderline"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:background="@drawable/white_gradient"
+        app:layout_constraintTop_toTopOf="@id/rvVendorList"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

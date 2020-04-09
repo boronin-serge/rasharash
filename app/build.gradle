@@ -30,6 +30,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':common-view')
+    implementation project(':common-extension')
 
     implementation dependencies.rxJava
     implementation dependencies.rxAndroid
@@ -41,6 +42,8 @@ dependencies {
     implementation developmentDependencies.kotlinStdlibJdk7
     
     implementation dependencies.glide
+
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
     // Retrofit
     implementation dependencies.retrofit

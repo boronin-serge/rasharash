@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".main.MainActivity">
@@ -17,7 +16,7 @@
         android:textSize="20sp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/etTrackName"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvHeader"
@@ -29,7 +28,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@id/etTrackName"
-        app:layout_constraintTop_toBottomOf="@id/tvLogo"/>
+        app:layout_constraintTop_toBottomOf="@id/tvLogo" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etTrackName"
@@ -38,17 +37,17 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:background="@null"
         android:hint="@string/input_name_hint"
         android:imeOptions="actionSearch"
-        android:background="@null"
-        android:maxLines="1"
         android:inputType="text|textNoSuggestions"
+        android:maxLines="1"
         android:textCursorDrawable="@null"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/tvHeader"
         app:layout_constraintEnd_toStartOf="@id/btnClear"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHeader"
         tools:text="Track name" />
 
     <View
@@ -59,7 +58,7 @@
         android:background="#0D000000"
         app:layout_constraintEnd_toEndOf="@id/btnClear"
         app:layout_constraintStart_toStartOf="@id/etTrackName"
-        app:layout_constraintTop_toBottomOf="@id/etTrackName"/>
+        app:layout_constraintTop_toBottomOf="@id/etTrackName" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/btnClear"
@@ -80,24 +79,29 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
+        android:translationZ="1dp"
         android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vUnderline"/>
+        app:layout_constraintTop_toBottomOf="@+id/vUnderline" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="12dp"
         android:background="@drawable/white_gradient"
-        app:layout_constraintTop_toTopOf="@id/rvVendorList"/>
+        app:layout_constraintTop_toTopOf="@id/rvVendorList" />
 
-    <ProgressBar
+    <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/progressBar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        style="@style/SpinKitView.Pulse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="0dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:SpinKit_Color="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/etTrackName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

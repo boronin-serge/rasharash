@@ -15,6 +15,8 @@ import com.boronin.rasharash.R
 import com.boronin.rasharash.models.song.SongInfo
 import com.boronin.rasharash.utils.SystemHelper
 import kotlinx.android.synthetic.main.activity_main.*
+import ru.boronin.common.extension.widget.fadeOutIn
+
 
 class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListener,
     TextView.OnEditorActionListener, VendorsAdapter.ItemClickListener {
@@ -38,11 +40,16 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
     }
 
     override fun showSearchResult(searchResult: List<SongInfo>) {
-        (rvVendorList.adapter as VendorsAdapter).update(searchResult)
+        rvVendorList.fadeOutIn {
+            rvVendorList.smoothScrollToPosition(0)
+            (rvVendorList.adapter as VendorsAdapter).update(searchResult)
+        }
     }
 
     override fun enableLoading(isEnable: Boolean) {
-        progressBar.visibility = if (isEnable) VISIBLE else INVISIBLE
+        progressBar.fadeOutIn {
+            progressBar.visibility = if (isEnable) VISIBLE else INVISIBLE
+        }
     }
 
     override fun showError(text: String) {

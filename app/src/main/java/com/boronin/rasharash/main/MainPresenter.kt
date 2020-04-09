@@ -33,7 +33,6 @@ class MainPresenter: BasePresenter<MainContract.View>(), MainContract.Presenter 
         subscriptions = interactor.findSong(songName, vendor)
             .progress{ view?.enableLoading(it) }
             .subscribe({ list ->
-                view?.enableLoading(false)
                 view?.showSearchResult(list ?: listOf())
             }, {
                 view?.showError(Constants.LOADING_ERROR)

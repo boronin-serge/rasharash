@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.boronin.rasharash.R
 import com.boronin.rasharash.models.song.SongInfo
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         rvVendorList.fadeOutIn {
             rvVendorList.smoothScrollToPosition(0)
             (rvVendorList.adapter as VendorsAdapter).update(searchResult)
+            ivNoSongs.isVisible = searchResult.isEmpty()
         }
     }
 

@@ -33,15 +33,46 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivNoSongs"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="64dp"
-        android:src="@drawable/ic_no_songs"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="64dp"
+        android:src="@drawable/no_songs_logo"
+        app:layout_constraintBottom_toBottomOf="@+id/rvVendorList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/rvVendorList"/>
+        app:layout_constraintTop_toTopOf="@id/rvVendorList" />
+
+    <TextView
+        android:id="@+id/tvNotFoundHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/sfprodisplay_medium"
+        android:text="@string/not_found_title_hint"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@id/ivNoSongs"
+        app:layout_constraintStart_toStartOf="@id/ivNoSongs"
+        app:layout_constraintTop_toBottomOf="@id/ivNoSongs" />
+
+    <TextView
+        android:id="@+id/tvNotFoundDescHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sfprodisplay_light"
+        android:text="@string/not_found_desc_hint"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/tvNotFoundHint"
+        app:layout_constraintStart_toStartOf="@id/tvNotFoundHint"
+        app:layout_constraintTop_toBottomOf="@id/tvNotFoundHint" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/noSongsHintGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="ivNoSongs, tvNotFoundHint, tvNotFoundDescHint"
+        tools:visibility="visible"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/etTrackName"
@@ -102,6 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="12dp"
         android:background="@drawable/white_gradient"
+        android:translationZ="2dp"
         app:layout_constraintTop_toTopOf="@id/rvVendorList" />
 
     <com.github.ybq.android.spinkit.SpinKitView

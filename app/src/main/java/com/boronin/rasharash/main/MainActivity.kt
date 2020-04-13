@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
         rvVendorList.fadeOutIn {
             rvVendorList.smoothScrollToPosition(0)
             (rvVendorList.adapter as VendorsAdapter).update(searchResult)
-            ivNoSongs.isVisible = searchResult.isEmpty()
         }
     }
 
@@ -56,6 +55,22 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
 
     override fun showError(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun setNotFoundHint() {
+        ivNoSongs.setImageResource(R.drawable.no_songs_logo)
+        tvNotFoundHint.setText(R.string.not_found_title_hint)
+        tvNotFoundDescHint.setText(R.string.not_found_desc_hint)
+    }
+
+    override fun setSearchHint() {
+        ivNoSongs.setImageResource(R.drawable.ic_search_song)
+        tvNotFoundHint.setText(R.string.start_search_title_hint)
+        tvNotFoundDescHint.setText(R.string.start_search_desc_hint)
+    }
+
+    override fun showHint(show: Boolean) {
+        noSongsHintGroup.isVisible = show
     }
 
     override fun shareLink(url: String) {
@@ -77,6 +92,8 @@ class MainActivity : AppCompatActivity(), MainContract.View, View.OnClickListene
             R.id.btnClear -> {
                 etTrackName.text?.clear()
                 showSearchResult(listOf())
+                setSearchHint()
+                showHint(true)
             }
         }
     }

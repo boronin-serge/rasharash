@@ -3,5 +3,9 @@
     <string name="send_hint">Отправить</string>
     <string name="send_to">Отправить ссылку через…</string>
     <string name="search_hint">Композиция</string>
+    <string name="not_found_title_hint">Поиск не дал результатов</string>
+    <string name="not_found_desc_hint">Попробуйте уточнить запрос</string>
+    <string name="start_search_title_hint">Введите название трека или исполнителя</string>
+    <string name="start_search_desc_hint">Выберите результат, чтобы поделиться ссылкой</string>
     <string name="input_name_hint">Поиск</string>
 </resources>
